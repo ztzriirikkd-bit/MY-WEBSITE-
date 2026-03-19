@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hacker Team OFC</title>
+
+<style>
+body{
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    font-family:Arial;
+}
+.box{
+    background:#1e293b;
+    padding:20px;
+    margin:30px;
+    border-radius:15px;
+}
+button{
+    padding:12px 20px;
+    background:#22c55e;
+    border:none;
+    color:white;
+    margin:10px;
+    border-radius:10px;
+    cursor:pointer;
+}
+</style>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+</head>
+
+<body>
+
+<h1>HACKER TEAM OFC 🔥</h1>
+
+<div class="box">
+    <h2>Download Section</h2>
+
+    <button onclick="openAPK()">📱 Download APK</button>
+    <button onclick="openVideo()">🎥 Watch Video</button>
+
+    <p id="status">Loading...</p>
+</div>
+
+<script>
+
+// 🔴 SAME CONFIG use karo jo admin me hai
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  databaseURL: "YOUR_DB_URL",
+  projectId: "YOUR_ID",
+  storageBucket: "YOUR_BUCKET",
+  appId: "XXXX"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+let apkLink = "";
+let videoLink = "";
+
+// AUTO LOAD DATA
+db.ref("app").on("value", (snap)=>{
+    const data = snap.val();
+
+    if(data){
+        apkLink = data.apk || "";
+        videoLink = data.video || "";
+
+        document.getElementById("status").innerText = "✅ Ready";
+    } else {
+        document.getElementById("status").innerText = "❌ No Data Found";
+    }
+});
+
+// BUTTON FUNCTIONS
+function openAPK(){
+    if(apkLink){
+        window.open(apkLink, "_blank");
+    } else {
+        alert("APK Link not available ❌");
+    }
+}
+
+function openVideo(){
+    if(videoLink){
+        window.open(videoLink, "_blank");
+    } else {
+        alert("Video Link not available ❌");
+    }
+}
+
+</script>
+
+</body>
+</html>
