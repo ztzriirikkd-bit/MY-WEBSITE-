@@ -43,6 +43,78 @@ button{
     <button onclick="openAPK()">📱 Download APK</button>
     <button onclick="openVideo()">🎥 Watch Video</button>
 
+    <!-- 🔥 NEW BUTTON -->
+    <button onclick="openAdmin()">⚙️ Open Admin Panel</button>
+
+    <p id="status">Loading...</p>
+</div>
+
+<script>
+
+// 🔴 SAME CONFIG use karo jo admin me hai
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  databaseURL: "YOUR_DB_URL",
+  projectId: "YOUR_ID",
+  storageBucket: "YOUR_BUCKET",
+  appId: "XXXX"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+let apkLink = "";
+let videoLink = "";
+
+// AUTO LOAD DATA
+db.ref("app").on("value", (snap)=>{
+    const data = snap.val();
+
+    if(data){
+        apkLink = data.apk || "";
+        videoLink = data.video || "";
+
+        document.getElementById("status").innerText = "✅ Ready";
+    } else {
+        document.getElementById("status").innerText = "❌ No Data Found";
+    }
+});
+
+// BUTTON FUNCTIONS
+function openAPK(){
+    if(apkLink){
+        window.open(apkLink, "_blank");
+    } else {
+        alert("APK Link not available ❌");
+    }
+}
+
+function openVideo(){
+    if(videoLink){
+        window.open(videoLink, "_blank");
+    } else {
+        alert("Video Link not available ❌");
+    }
+}
+
+// 🔥 ADMIN PANEL FUNCTION
+function openAdmin(){
+    window.open("https://ztzriirikkd-bit.github.io/MY-ADMIN-PANEL-/", "_blank");
+}
+
+</script>
+
+</body>
+</html>
+<h1>HACKER TEAM OFC 🔥</h1>
+
+<div class="box">
+    <h2>Download Section</h2>
+
+    <button onclick="openAPK()">📱 Download APK</button>
+    <button onclick="openVideo()">🎥 Watch Video</button>
+
     <p id="status">Loading...</p>
 </div>
 
