@@ -1,40 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Hacker Team OFC</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HACKER TEAM OFC</title>
 
 <style>
-body{
-    background:#0f172a;
-    color:white;
+body {
+    margin:0;
+    background:black;
+    color:#00ff00;
+    font-family: monospace;
     text-align:center;
-    font-family:Arial;
 }
-.box{
-    background:#1e293b;
-    padding:20px;
-    margin:30px;
-    border-radius:15px;
+
+/* MATRIX BACKGROUND */
+canvas {
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:-1;
 }
-button{
-    padding:12px 20px;
-    background:#22c55e;
-    border:none;
-    color:white;
-    margin:10px;
-    border-radius:10px;
-    cursor:pointer;
+
+/* MAIN BOX */
+.box {
+    margin-top:120px;
+}
+
+h1 {
+    font-size:45px;
+    text-shadow:0 0 20px #00ff00;
+}
+
+.typing {
+    font-size:20px;
+    border-right:2px solid #00ff00;
+    width:fit-content;
+    margin:auto;
+    white-space:nowrap;
+    overflow:hidden;
+    animation: typing 4s steps(30), blink .7s infinite;
+}
+
+@keyframes typing {
+    from { width:0 }
+    to { width:100% }
+}
+
+@keyframes blink {
+    50% { border-color: transparent }
+}
+
+.btn {
+    display:inline-block;
+    margin-top:30px;
+    padding:12px 25px;
+    border:1px solid #00ff00;
+    color:#00ff00;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.btn:hover {
+    background:#00ff00;
+    color:black;
 }
 </style>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
-
 </head>
 
 <body>
 
+<canvas id="matrix"></canvas>
+
+<div class="box">
+    <h1>HACKER TEAM OFC</h1>
+    <div class="typing">Access Granted... Welcome Hacker 💀</div>
+
+    <a href="https://t.me/yourchannel" class="btn">JOIN TELEGRAM</a>
+</div>
+
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+const letters = "01HACKERTEAM";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+for(let x = 0; x < columns; x++)
+drops[x] = 1;
+
+function draw() {
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#0f0";
+    ctx.font = fontSize + "px monospace";
+
+    for(let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+
+        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+        drops[i] = 0;
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 33);
+</script>
+
+</body>
+</html>
 <h1>HACKER TEAM OFC 🔥</h1>
 
 <div class="box">
