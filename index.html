@@ -9,12 +9,11 @@
 body {
     margin:0;
     background:black;
-    color:#00ff00;
+    overflow:hidden;
     font-family: monospace;
-    text-align:center;
 }
 
-/* MATRIX BACKGROUND */
+/* MATRIX */
 canvas {
     position: fixed;
     top:0;
@@ -22,46 +21,100 @@ canvas {
     z-index:-1;
 }
 
-/* MAIN BOX */
-.box {
-    margin-top:120px;
+/* CENTER BOX */
+.main {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    text-align:center;
+    color:#00ff00;
 }
 
+/* TITLE */
 h1 {
-    font-size:45px;
+    font-size:50px;
     text-shadow:0 0 20px #00ff00;
+    margin:0;
 }
 
-.typing {
+/* SUBTEXT */
+.text {
+    margin-top:20px;
     font-size:20px;
-    border-right:2px solid #00ff00;
-    width:fit-content;
-    margin:auto;
-    white-space:nowrap;
-    overflow:hidden;
-    animation: typing 4s steps(30), blink .7s infinite;
+    letter-spacing:2px;
 }
 
-@keyframes typing {
-    from { width:0 }
-    to { width:100% }
-}
-
-@keyframes blink {
-    50% { border-color: transparent }
-}
-
+/* BUTTON */
 .btn {
     display:inline-block;
     margin-top:30px;
-    padding:12px 25px;
-    border:1px solid #00ff00;
+    padding:12px 30px;
+    border:2px solid #00ff00;
     color:#00ff00;
     text-decoration:none;
+    font-size:18px;
     transition:0.3s;
 }
 
 .btn:hover {
+    background:#00ff00;
+    color:black;
+    box-shadow:0 0 20px #00ff00;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="main">
+    <h1>HACKER TEAM OFC</h1>
+    <div class="text">Access Granted... Welcome Hacker</div>
+    <a href="https://t.me/+8ZDskkfPOmE3MDZl" class="btn">JOIN TELEGRAM</a>
+</div>
+
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "01HACKERTEAMOFC";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+for (let i = 0; i < columns; i++) {
+    drops[i] = 1;
+}
+
+function draw() {
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#0f0";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 33);
+</script>
+
+</body>
+</html>.btn:hover {
     background:#00ff00;
     color:black;
 }
